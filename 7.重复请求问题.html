@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>重复请求</title>
+</head>
+<body>
+    <button>发送请求</button>
+
+    <script>
+        const btn = document.querySelectorAll('button');
+
+        let xhr = null;
+
+        //标识
+        let isSending = false;
+
+
+        btn[0].onclick = function(){
+            if(isSending){
+                xhr.abort();
+            }
+            isSending = true;
+            xhr = new XMLHttpRequest();
+            xhr.open('GET', 'http://127.0.0.1:3000/dalay');
+            xhr.send();
+            xhr.onreadystatechange = function(){
+                //判断（服务端反悔了所有结果）
+                if(xhr.readyState === 4){
+                    //判断状态码 200 404 500
+                    isSending = false;
+                    if(xhr.status >= 200 && xhr.status < 300){
+                        div.innerHTML = xhr.response;
+                        
+                    }
+                }
+            }
+        };
+
+        
+
+
+
+    </script>
+</body>
+</html>

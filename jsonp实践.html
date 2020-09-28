@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>案例</title>
+</head>
+<body>
+    用户名：<input type="text" id="username">
+
+    <script>
+        const inp = document.querySelector('input');
+
+        inp.onblur = function(){
+            const xhr = new XMLHttpRequest();
+            //因为这里满足同源策略，所以url可以简写
+            xhr.open('GET', '/data');
+            xhr.send();
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4){
+                    if(xhr.status >= 200 && xhr.status < 300){
+                        console.log(xhr.response);
+                    }
+                }
+            }
+        }
+
+
+    </script>
+</body>
+</html>

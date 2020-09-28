@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery服务</title>
+    <script src="jquery-3.4.1.min.js"></script>
+</head>
+<body>
+    <button class="get">get</button>
+    <button class="post">post</button>
+    <button class="all">通用性方法</button>
+
+    <script>
+        //get
+        $('.get').on('click', function(){
+            $.get('http://127.0.0.1:3000/jquery-server', {a: 100, b: 200}, function(data){
+                console.log(data);
+            }, 'json');
+        });
+
+
+        //post
+        $('.post').on('click', function(){
+            $.post('http://127.0.0.1:3000/jquery-server', {a: 100, b: 200}, function(data){
+                console.log(data);
+            });
+        });
+
+
+        //all
+        $('.all').on('click', function(){
+            $.ajax({
+                url: 'http://127.0.0.1:3000/jquery-server',
+                data:  {a: 100, b: 200},
+                type: 'GET',
+                //响应体结果设置
+                dataType: 'json',
+                success: function(data){
+                    console.log(data);
+                },
+                //超时时间
+                timeout: 2000,
+                //错误回调
+                error: function(){
+                    console.log('出错了');
+                },
+                //头信息
+                headers: {
+                    a: 300,
+                    b: 400
+                }
+            })
+        });
+
+    </script>
+</body>
+</html>
